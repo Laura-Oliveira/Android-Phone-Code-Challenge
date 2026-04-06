@@ -1,0 +1,4 @@
+package musicPlayer
+
+class MusicPlayerViewModel {
+}

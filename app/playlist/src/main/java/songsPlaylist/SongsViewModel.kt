@@ -1,0 +1,4 @@
+package songsPlaylist
+
+class SongsViewModel {
+}
