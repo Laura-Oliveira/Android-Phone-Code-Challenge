@@ -1,19 +1,14 @@
-package com.challenge.navigation
+package com.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
-import com.challenge.SplashScreen
-import com.challenge.SplashScreenContent
+import com.core.SplashScreenContent
 import songsPlaylist.SongsListScreen
-import songsPlaylist.SongsListScreenContent
-
-//import com.playlist.app.ui.splash.SplashScreen
-//import com.playlist.feature.playlist.HomeScreen // 🔥 vem do módulo playlist
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation()
+{
     val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = Routes.SPLASH

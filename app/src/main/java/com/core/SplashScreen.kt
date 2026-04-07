@@ -1,8 +1,10 @@
-package com.challenge
+package com.core
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,9 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import com.challenge.navigation.AppNavigation
+import com.core.navigation.AppNavigation
 import kotlinx.coroutines.delay
-import com.challenge.ui.theme.SongsAppTheme
+import com.core.ui.theme.SongsAppTheme
+import com.playlist.R
 
 class SplashScreen : ComponentActivity()
 {
@@ -35,9 +38,9 @@ class SplashScreen : ComponentActivity()
 @Composable
 fun SplashScreenContent(onNavigateToHome: () -> Unit)
 {
-    val scale = androidx.compose.animation.core.animateFloatAsState(
+    val scale = animateFloatAsState(
         targetValue = 1f,
-        animationSpec = androidx.compose.animation.core.tween(1000)
+        animationSpec = tween(1000)
     )
 
     LaunchedEffect(Unit)
@@ -55,7 +58,7 @@ fun SplashScreenContent(onNavigateToHome: () -> Unit)
         )
         {
             Image(
-                painter = painterResource(id = com.playlist.R.mipmap.app_icon_orange_foreground),
+                painter = painterResource(id = R.mipmap.app_icon_orange_foreground),
                 contentDescription = "App Icon",
                 modifier = Modifier
                     .fillMaxSize(0.6f)

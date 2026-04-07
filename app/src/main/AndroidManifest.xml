@@ -11,7 +11,7 @@
         android:theme="@style/Theme.SongsApp">
 
         <activity
-            android:name=".SplashScreen"
+            android:name="com.core.SplashScreen"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

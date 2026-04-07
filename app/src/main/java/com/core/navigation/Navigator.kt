@@ -1,4 +1,4 @@
-package com.challenge.navigation
+package com.core.navigation
 
 interface Navigator {
     fun onNavigateToHome()

@@ -1,4 +1,4 @@
-package data.service
+package data.remote
 
 class RetrofitAPI {
 }
