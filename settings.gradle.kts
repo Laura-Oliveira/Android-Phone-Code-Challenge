@@ -7,6 +7,7 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+
         mavenCentral()
         gradlePluginPortal()
     }
@@ -21,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Songs App"
 include(":app")
-include(":app:playlist")
+include(":playlist")

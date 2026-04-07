@@ -32,9 +32,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
     }
-    kotlinOptions {
-        jvmTarget = "11"
+
+    kotlin {
+        jvmToolchain(11) // Define Java 17 para compilação e teste
     }
     buildFeatures {
         compose = true
@@ -42,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":playlist"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
