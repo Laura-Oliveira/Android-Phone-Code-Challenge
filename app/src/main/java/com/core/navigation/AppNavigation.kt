@@ -1,9 +1,10 @@
 package com.core.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
 import com.core.SplashScreenContent
-import songsPlaylist.SongsListScreen
+import songsPlaylist.view.SongsScreen
 
 @Composable
 fun AppNavigation()
@@ -25,7 +26,7 @@ fun AppNavigation()
         }
 
         composable(Routes.HOME) {
-            SongsListScreen()
+            SongsScreen()
         }
 
         composable(Routes.PLAYER) {
