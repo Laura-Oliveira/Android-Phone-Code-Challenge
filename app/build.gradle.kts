@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -12,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.challenge"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -67,6 +68,32 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
+
+    // Hilt
+    implementation(libs.hilt.android)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+//
+//    implementation("androidx.room:room-runtime:2.6.1")
+//    implementation("androidx.room:room-ktx:2.6.1")
+
+  //  ksp("androidx.room:room-compiler:2.6.1")
+
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
+
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+
 }
