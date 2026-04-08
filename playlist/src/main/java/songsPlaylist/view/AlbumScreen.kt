@@ -1,6 +1,5 @@
-package songsPlaylist
+package songsPlaylist.view
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 class SongsAlbumScreen : AppCompatActivity() {
