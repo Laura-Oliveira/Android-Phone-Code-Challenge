@@ -6,4 +6,3 @@ data class Song(
    val artist: String,
    val artwork: String
 )
-

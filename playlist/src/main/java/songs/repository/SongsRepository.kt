@@ -1,4 +1,4 @@
-package songsPlaylist
+package songs.repository
 
 import kotlinx.coroutines.flow.Flow
 import androidx.paging.PagingData

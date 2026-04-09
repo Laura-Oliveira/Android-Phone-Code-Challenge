@@ -68,8 +68,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-
+    //SplashScreen
     implementation(libs.androidx.core.splashscreen)
+
+    //Compose
     implementation(libs.androidx.navigation.compose)
 
     // Hilt
@@ -82,18 +84,10 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-//
-//    implementation("androidx.room:room-runtime:2.6.1")
-//    implementation("androidx.room:room-ktx:2.6.1")
-
-  //  ksp("androidx.room:room-compiler:2.6.1")
 
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
 
-
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-
-
 }

@@ -1,4 +1,4 @@
-package songsPlaylist.view
+package album
 
 import androidx.appcompat.app.AppCompatActivity
 

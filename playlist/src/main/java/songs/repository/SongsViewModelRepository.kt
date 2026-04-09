@@ -1,14 +1,14 @@
-package songsPlaylist
+package songs.repository
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import data.local.SearchSongsUseCase
+import songs.SongsViewModel
 
 class SongsViewModelFactory(
-    private val searchSongsUseCase: SearchSongsUseCase
+    private val songsRepository: SongsRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SongsViewModel(searchSongsUseCase) as T
+        return SongsViewModel(songsRepository) as T
     }
 }

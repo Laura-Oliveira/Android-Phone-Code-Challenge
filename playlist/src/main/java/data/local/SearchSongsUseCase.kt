@@ -1,6 +1,6 @@
 package data.local
 
-import songsPlaylist.SongsRepository
+import songs.repository.SongsRepository
 
 class SearchSongsUseCase(
     private val repository: SongsRepository

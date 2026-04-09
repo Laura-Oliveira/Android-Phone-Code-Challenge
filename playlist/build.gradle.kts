@@ -10,7 +10,6 @@ android {
         version = release(36)
     }
 
-
     defaultConfig {
         //applicationId = "com.playlist"
         minSdk = 25
@@ -85,20 +84,16 @@ dependencies {
 
     implementation(libs.androidx.paging.compose)
 
-
-
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
     //Compose
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
     implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.androidx.ui.tooling)
 
     //Coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 
     //Material Icons
-    implementation ("androidx.compose.material:material-icons-extended")
+    implementation (libs.androidx.compose.material.icons.extended)
 }

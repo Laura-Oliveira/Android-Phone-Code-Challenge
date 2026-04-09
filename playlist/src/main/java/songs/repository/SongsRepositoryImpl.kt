@@ -1,13 +1,11 @@
-package songsPlaylist
+package songs.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import data.remote.ItunesAPI
 import kotlinx.coroutines.flow.Flow
-import data.local.AppDatabase
-import data.local.SongsPagingSource
-import data.mapper.toDomain
+import data.remote.SongsPagingSource
 import data.model.Song
 
 class SongsRepositoryImpl(
@@ -16,9 +14,11 @@ class SongsRepositoryImpl(
 
     override fun searchSongs(query: String): Flow<PagingData<Song>> {
         return Pager(
-            config = PagingConfig(pageSize = 20),
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false),
             pagingSourceFactory = {
-                SongsPagingSource(api, query) // sem dao
+                SongsPagingSource(api, query)
             }
         ).flow
     }

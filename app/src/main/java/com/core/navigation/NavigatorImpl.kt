@@ -1,9 +1,12 @@
 package com.core.navigation
 
 import androidx.navigation.NavHostController
+import jakarta.inject.Inject
+import songs.repository.SongsRepository
 
-class NavigatorImpl(
-    private val navController: NavHostController
+class NavigatorImpl @Inject constructor(
+    private val navController: NavHostController,
+    private val repository: SongsRepository
 ) : Navigator {
 
     override fun onNavigateToHome() {
@@ -13,10 +16,10 @@ class NavigatorImpl(
     }
 
     override fun onNavigateToPlayer() {
-        TODO("Not yet implemented")
+        navController.navigate(Routes.PLAYER)
     }
 
     override fun onNavigateToAlbum() {
-        TODO("Not yet implemented")
+        navController.navigate(Routes.ALBUM)
     }
 }

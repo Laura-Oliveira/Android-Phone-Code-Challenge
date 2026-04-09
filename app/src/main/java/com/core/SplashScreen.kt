@@ -30,8 +30,8 @@ class SplashScreen : ComponentActivity()
         setContent {
             SongsAppTheme() {
                 AppNavigation()
-            }
-        }
+            }//Theme
+        }//Content
     }
 }
 
@@ -69,4 +69,4 @@ fun SplashScreenContent(onNavigateToHome: () -> Unit)
             )//Image
         }//Box
     }//Surface
-}
+}//Composable
