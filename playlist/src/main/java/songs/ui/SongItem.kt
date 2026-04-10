@@ -1,5 +1,6 @@
 package songs.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +33,8 @@ fun SongItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp),
+            .clickable { onClick() }
+        .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 

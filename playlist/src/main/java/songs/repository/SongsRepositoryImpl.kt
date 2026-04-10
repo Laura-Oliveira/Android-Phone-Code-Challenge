@@ -28,12 +28,11 @@ class SongsRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override fun getSelectedSong(): Song? {
-        return if(selectedSong != null) selectedSong else TODO()
-    }
+
+    override fun getSelectedSong(): Song? = selectedSong
 
     override fun setSelectedSong(song: Song) {
-        if(selectedSong != null) selectedSong = song else TODO()
+        selectedSong = song
     }
 
     override suspend fun getRecentSongs(): List<Song> {

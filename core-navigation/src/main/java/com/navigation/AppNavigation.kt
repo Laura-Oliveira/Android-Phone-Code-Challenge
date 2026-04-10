@@ -29,7 +29,7 @@ fun AppNavigation(
         }
 
         featureGraphs.forEach { graph ->
-            graph.registerGraph(this, navigator)
+            graph.registerGraph(this, navigator, navController)
         }
     }
 }
