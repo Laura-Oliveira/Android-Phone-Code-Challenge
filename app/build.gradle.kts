@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    id("kotlin-parcelize")
+  //  id("kotlin-kapt")
 }
 
 android {
@@ -42,9 +45,14 @@ android {
     buildFeatures {
         compose = true
     }
+//    kapt {
+//        correctErrorTypes = true
+//    }
 }
 
 dependencies {
+    implementation(project(":core-navigation"))
+    implementation(project(":core-model"))
     implementation(project(":playlist"))
 
     implementation(libs.androidx.core.ktx)
@@ -76,6 +84,8 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    //kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Retrofit
     implementation(libs.retrofit)

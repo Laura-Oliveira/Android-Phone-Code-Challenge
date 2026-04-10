@@ -1,5 +1,6 @@
 package songs.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,12 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.navigation.NavigatorInterface
 import songs.SongsViewModel
 
 @Composable
-fun SongsListScreenContent(viewModel: SongsViewModel)
-{
+fun SongsListScreenContent(
+    viewModel: SongsViewModel,
+    navigator: NavigatorInterface
+) {
     val songs = viewModel.getSongs("eletronic").collectAsLazyPagingItems()
 
     //  val songs: LazyPagingItems<Song> = viewModel.songs.collectAsLazyPagingItems()
@@ -40,7 +45,7 @@ fun SongsListScreenContent(viewModel: SongsViewModel)
             color = Color.White,
             fontSize = 28.sp,
             modifier = Modifier.padding(16.dp)
-        )
+        )//Text
 
         SearchBar(
             value = text,
@@ -48,16 +53,21 @@ fun SongsListScreenContent(viewModel: SongsViewModel)
                 text = it
                 //viewModel.onSearchChanged(it)
             }
-        )
+        )//SearchBar
 
         Spacer(modifier = Modifier.height(8.dp))
 
         LazyColumn {
             items(songs.itemCount) { index ->
-                songs[index]?.let {
-                    SongItem(it)
-                }
-            }
-        }
-    }
-}
+                songs[index]?.let { song ->
+                    SongItem(
+                        song = song,
+                        onClick = {
+                            navigator.onNavigateToPlayer(song)
+                        }//onCLick
+                    )//SongItem
+                }//songs
+            }//items
+        }//LazyColumn
+    }//Column
+}//Composable

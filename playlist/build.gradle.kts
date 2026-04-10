@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-parcelize")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -11,12 +14,7 @@ android {
     }
 
     defaultConfig {
-        //applicationId = "com.playlist"
         minSdk = 25
-        //targetSdk = 36
-        //versionCode = 1
-        //versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,10 +32,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
-
     kotlin {
         jvmToolchain(11) // Define Java 17 para compilação e teste
     }
@@ -48,6 +42,10 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core-model"))
+    implementation(project(":core-navigation"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose.v182)
@@ -60,6 +58,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.media3.exoplayer)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,6 +69,10 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    //Hilt Navigation Compose
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit
     implementation(libs.retrofit)

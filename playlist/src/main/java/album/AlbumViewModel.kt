@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.model.Song
 import dagger.hilt.android.lifecycle.HiltViewModel
-import data.model.Song
 import kotlinx.coroutines.flow.Flow
 import songs.repository.SongsRepository
 import javax.inject.Inject

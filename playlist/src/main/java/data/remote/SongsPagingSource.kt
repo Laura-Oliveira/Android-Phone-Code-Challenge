@@ -2,7 +2,7 @@ package data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import data.model.Song
+import com.model.Song
 
 class SongsPagingSource(
     private val api: ItunesAPI,
@@ -28,7 +28,8 @@ class SongsPagingSource(
                     id = it.trackId,
                     title = it.trackName,
                     artist = it.artistName,
-                    artwork = highQualityImage
+                    artwork = highQualityImage,
+                    previewUrl = it.previewUrl
                 )
             }
 

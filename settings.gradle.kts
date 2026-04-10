@@ -20,6 +20,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Songs App"
+rootProject.name = "Song.kt App"
 include(":app")
 include(":playlist")
+include(":core-navigation")
+include(":core-model")
+include(":core-model")
+include(":core-model")

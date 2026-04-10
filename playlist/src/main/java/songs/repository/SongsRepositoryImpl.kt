@@ -3,14 +3,19 @@ package songs.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.model.Song
 import data.remote.ItunesAPI
 import kotlinx.coroutines.flow.Flow
 import data.remote.SongsPagingSource
-import data.model.Song
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SongsRepositoryImpl(
+@Singleton
+class SongsRepositoryImpl @Inject constructor(
     private val api: ItunesAPI
 ) : SongsRepository {
+
+    private var selectedSong: Song? = null
 
     override fun searchSongs(query: String): Flow<PagingData<Song>> {
         return Pager(
@@ -23,6 +28,14 @@ class SongsRepositoryImpl(
         ).flow
     }
 
+    override fun getSelectedSong(): Song? {
+        return if(selectedSong != null) selectedSong else TODO()
+    }
+
+    override fun setSelectedSong(song: Song) {
+        if(selectedSong != null) selectedSong = song else TODO()
+    }
+
     override suspend fun getRecentSongs(): List<Song> {
         TODO("Not yet implemented")
     }
@@ -31,26 +44,3 @@ class SongsRepositoryImpl(
         TODO("Not yet implemented")
     }
 }
-
-//class SongsRepositoryImpl(
-//    private val api: ItunesAPI,
-//    private val db: AppDatabase
-//) : SongsRepository {
-//
-//    override fun searchSongs(query: String): Flow<PagingData<Song>> {
-//        return Pager(
-//            config = PagingConfig(pageSize = 20),
-//            pagingSourceFactory = {
-//                SongsPagingSource(api, db.songDao(), query)
-//            }
-//        ).flow
-//    }
-//
-//    override suspend fun getRecentSongs(): List<Song> {
-//        return db.songDao().getRecentSongs().map { it.toDomain() }
-//    }
-//
-//    override suspend fun hasLocalData(): Boolean {
-//        return db.songDao().getRecentSongs().isNotEmpty()
-//    }
-//}

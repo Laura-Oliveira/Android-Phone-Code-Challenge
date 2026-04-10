@@ -20,11 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import data.model.Song
+import com.model.Song
 
 @Composable
-fun SongItem(song: Song)
-{
+fun SongItem(
+    song: Song,
+    onClick: () -> Unit
+) {
     val highQualityImage = song.artwork.replace("100x100", "300x300")
 
     Row(
@@ -40,7 +42,7 @@ fun SongItem(song: Song)
             modifier = Modifier
                 .size(56.dp)
                 .clip(RoundedCornerShape(8.dp))
-        )
+        )//AsyncImage
 
         Spacer(modifier = Modifier.width(12.dp))
 
@@ -55,12 +57,12 @@ fun SongItem(song: Song)
                 color = Color.Gray,
                 fontSize = 14.sp
             )
-        }
+        }//Column
 
         Icon(
             imageVector = Icons.Default.MoreVert,
             contentDescription = null,
             tint = Color.Gray
-        )
-    }
-}
+        )//Icon
+    }//Row
+}//Composable

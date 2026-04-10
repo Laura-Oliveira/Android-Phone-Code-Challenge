@@ -1,4 +1,0 @@
-package musicPlayer
-
-class MusicPlayerViewModel {
-}
