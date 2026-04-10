@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    id("kotlin-parcelize")
+  //  id("kotlin-kapt")
 }
 
 android {
@@ -42,9 +45,14 @@ android {
     buildFeatures {
         compose = true
     }
+//    kapt {
+//        correctErrorTypes = true
+//    }
 }
 
 dependencies {
+    implementation(project(":core-navigation"))
+    implementation(project(":core-model"))
     implementation(project(":playlist"))
 
     implementation(libs.androidx.core.ktx)
@@ -68,12 +76,16 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-
+    //SplashScreen
     implementation(libs.androidx.core.splashscreen)
+
+    //Compose
     implementation(libs.androidx.navigation.compose)
 
     // Hilt
     implementation(libs.hilt.android)
+    //kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -82,18 +94,10 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-//
-//    implementation("androidx.room:room-runtime:2.6.1")
-//    implementation("androidx.room:room-ktx:2.6.1")
-
-  //  ksp("androidx.room:room-compiler:2.6.1")
 
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
 
-
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-
-
 }

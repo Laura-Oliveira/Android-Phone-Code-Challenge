@@ -3,6 +3,7 @@ package com.core
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -17,27 +18,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import com.core.navigation.AppNavigation
 import kotlinx.coroutines.delay
 import com.core.ui.theme.SongsAppTheme
+import com.navigation.AppNavigation
 import com.playlist.R
+import dagger.hilt.android.AndroidEntryPoint
+import navigation.PlaylistFeatureGraph
+import songs.repository.SongsRepositoryImpl
 
+@AndroidEntryPoint
 class SplashScreen : ComponentActivity()
 {
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            SongsAppTheme() {
-                AppNavigation()
-            }
+            AppNavigation(
+                splashContent = { onFinished ->
+                    SplashScreenContent(onNavigateToHome = onFinished)
+                },
+                featureGraphs = listOf(
+                    PlaylistFeatureGraph()
+                )
+            )
         }
     }
 }
 
 @Composable
-fun SplashScreenContent(onNavigateToHome: () -> Unit)
-{
+fun SplashScreenContent(
+    onNavigateToHome: () -> Unit
+) {
     val scale = animateFloatAsState(
         targetValue = 1f,
         animationSpec = tween(1000)
@@ -69,4 +80,4 @@ fun SplashScreenContent(onNavigateToHome: () -> Unit)
             )//Image
         }//Box
     }//Surface
-}
+}//Composable
