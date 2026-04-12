@@ -1,23 +1,20 @@
-<div align="center"> 
-	
-# 🎵 Android Songs App – Moises Code Challenge
+<div align="center">
+
+# 🎵 Android Songs App
+
+### iTunes-powered music explorer built as a Moises Code Challenge
 
 </div>
 
 <div align="center">
 
-![Status](https://img.shields.io/badge/Status-Development-00C2A8?style=plastic)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0-purple?style=plastic&logo=kotlin)
 ![Platform](https://img.shields.io/badge/Android-Jetpack%20Compose-green?style=plastic&logo=android)
 ![Architecture](https://img.shields.io/badge/Architecture-MVVM%20%2B%20Clean-blue?style=plastic)
-
-</div>
-
-<div align="center">
-
-![Coroutines](https://img.shields.io/badge/Coroutines-Flow-orange?style=plastic)
+![Coroutines](https://img.shields.io/badge/Async-Coroutines%20%2B%20Flow-orange?style=plastic)
 ![Room](https://img.shields.io/badge/Database-Room-3DDC84?style=plastic)
 ![Paging](https://img.shields.io/badge/Pagination-Paging3-blue?style=plastic)
+![Status](https://img.shields.io/badge/Status-Completed-00C2A8?style=plastic)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=plastic)
 
 </div>
@@ -25,332 +22,355 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge/blob/develop/app/src/assets/readme.png" width="800"/>
+A production-oriented Android app that searches songs via the iTunes API, caches results locally with Room, and plays audio previews — built with a modular Clean Architecture to showcase scalable, testable, real-world Android engineering.
 </p>
+
+---
+
+<div align="center">
+  <img src="https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge/blob/develop/app/src/assets/readme.png" width="800"/>
+  <br/><br/>
+  <video src="https://github.com/user-attachments/assets/5e844c0a-7a23-43bb-88dd-43b28e85e02d" 
+         controls autoplay loop muted width="400">
+  </video>
+</div>
+
+<!--
+ <img src="https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge/blob/develop/app/src/assets/readme.png" width="800"/>
+ -->
 
 ---
 
 ## 📑 Table of Contents
 
-- [🚀 Project Overview](#-project-overview)
-- [🎯 Challenge Goals](#-challenge-goals)
-- [🛠 Tech Stack](#-tech-stack)
-- [🏗 Architecture](#-architecture)
-- [📂 Project Structure](#-project-structure)
-- [✨ Features](#-features)
-- [📡 API Integration](#-api-integration)
-- [💾 Offline-First Strategy](#-offline-first-strategy)
-- [🧪 Testing](#-testing)
-- [▶️ Running the App](#️-running-the-app)
-- [🧠 Engineering Decisions](#-engineering-decisions)
-- [🚀 Improvements](#-improvements)
-- [🌍 Why this Project Matters](#-why-this-project-matters)
-- [👩🏻‍💻 About the Developer](#-about-the-developer)
-- [🔗 Connect with Me](#-connect-with-me)
+- [Overview](#-overview)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Data Flow](#-data-flow)
+- [Project Structure](#-project-structure)
+- [Features](#-features)
+- [Engineering Decisions](#-engineering-decisions)
+- [Testing](#-testing)
+- [Running the App](#-running-the-app)
+- [Known Limitations](#-known-limitations)
+- [Planned Improvements](#-planned-improvements)
+- [About the Developer](#-about-the-developer)
 
 ---
 
-## 🚀 Project Overview
+## 🚀 Overview
 
-This project is an Android application built as part of a technical challenge inspired by real-world product requirements.
+This app allows users to:
 
-The app allows users to:
+- 🔍 Search songs through the iTunes Search API with infinite scroll pagination
+- 🎧 Play 30-second audio previews with a dedicated player UI
+- 📀 Browse album details for any track
+- 💾 Access recently searched songs offline via a local Room cache
 
-- 🔍 Search songs using the iTunes API  
-- 🎧 View song details and play previews  
-- 📀 Explore album information  
-- 💾 Access recently played songs (offline-first experience)
-
-The focus of this project is not only functionality, but **production-ready architecture and engineering quality**.
-
----
-
-## 🎯 Challenge Goals
-
-This project was designed to demonstrate:
-
-- Clean and scalable Android architecture
-- Real-world data flow (API + Cache)
-- Modern Android development practices
-- High-quality, maintainable Kotlin code
-- Strong UX with responsive UI states
+The primary goal was not only to fulfill the challenge requirements, but to demonstrate **production-ready architectural thinking**: clean module boundaries, reactive data flow, offline resilience, and code that is straightforward to test and extend.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Kotlin**
-- **Jetpack Compose**
-- **MVVM + Clean Architecture**
-- **Coroutines & Flow**
-- **Paging 3**
-- **Navigator**
-- **Room Database**
-- **Retrofit**
-- **Hilt (Dependency Injection)**
-- **Git/Github**
-- **Android Studio Otter | 2025.2.1 Patch 1**
+| Layer | Technology |
+|---|---|
+| Language | Kotlin 2.0 |
+| UI | Jetpack Compose |
+| Architecture | MVVM + Clean Architecture |
+| Async | Coroutines + Flow |
+| Pagination | Paging 3 |
+| Navigation | Custom Navigator abstraction |
+| Local DB | Room |
+| Networking | Retrofit |
+| DI | Hilt |
+| Build | Gradle KTS + Version Catalog |
+| IDE | Android Studio Otter 2025.2.1 Patch 1 |
 
 ---
 
-### 🏗️ Architecture
+## 🏗 Architecture
 
-#### Modules
-- **app** → Entry point, App setup, Splash, Theme  
-- **playlist** → Feature module (songs list, player, album, UI, ViewModels)  
-- **core-navigation** → Navigation abstraction (Navigator, Routes, FeatureGraph)  
-- **core-network** → Data layer (API, Paging, Database, DTOs)  
-- **core-model** → Shared domain models  
+The project follows a **multi-module Clean Architecture** where each module has a single, well-defined responsibility. Dependencies flow strictly inward — feature modules depend on core modules, never the reverse.
 
----
+```
+app  ──▶  playlist (feature)  ──▶  core-navigation
+                              ──▶  core-network
+                              ──▶  core-model
+```
 
-#### Presentation
-- Jetpack Compose UI (Screens, Components)  
-- ViewModels (state management)  
-- Feature-based UI structure (playlist module)  
+### Modules
 
----
+| Module | Responsibility |
+|---|---|
+| `app` | Application entry point, Hilt setup, Splash, Theme |
+| `playlist` | Feature module: song list, player, album, ViewModels, Repository impl |
+| `core-navigation` | Navigation abstraction: `Navigator`, `Routes`, `FeatureGraph` |
+| `core-network` | Data layer: Retrofit API, Paging, Room DB, DTOs |
+| `core-model` | Shared domain models (`Song`) consumed by all modules |
 
-#### Domain
-- Business models (**core-model**)  
-- Navigation contracts (abstractions from core-navigation)  
+### Layers
 
----
+**Presentation** — `playlist` module  
+Jetpack Compose screens and components, ViewModels managing UI state via `StateFlow`, feature-scoped DI graphs.
 
-#### Data
-- **Remote**
-  - iTunes API (Retrofit)
-  - PagingSource
-- **Local**
-  - Room (Database, DAO, Entities)
-  - Offline data handling
-- **Repository**
-  - Implementations inside feature modules (playlist)
-  - Abstraction between data sources and domain
+**Domain** — `core-model` + `core-navigation`  
+Pure Kotlin models with no Android dependencies. Navigation contracts defined as interfaces, keeping the feature module decoupled from any concrete navigation implementation.
 
----
+**Data** — `core-network`  
+Split into `remote/` (Retrofit + `SongsPagingSource`), `local/` (Room + `SearchSongsUseCase`), and `model/` (DTOs + `SongEntity`). Repository implementations live in the `playlist` module to avoid leaking feature concerns into core.
+
+### Architecture Diagram
 
 ![architecture](https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge/blob/develop/app/src/assets/architecture.svg)
 
 ---
 
+## 🔄 Data Flow
+
+Understanding how data moves through the app is key to understanding the architecture:
+
+```
+User types query
+      │
+      ▼
+SongsViewModel
+      │  calls
+      ▼
+SongsRepositoryImpl
+      │
+      ├──▶ [Network available]
+      │         Retrofit ──▶ iTunes API
+      │         SongsPagingSource ──▶ Room (writes cache)
+      │
+      └──▶ [Network unavailable]
+                Room local DB ──▶ returns cached results
+      │
+      ▼
+Paging 3 PagingData<Song>
+      │
+      ▼
+Compose UI (LazyColumn via collectAsLazyPagingItems)
+```
+
+Room acts as the **single source of truth**. The UI never reads directly from the network response — it always reads from the local database, which is kept in sync by the repository layer.
+
+---
+
 ## 📂 Project Structure
+
+<details>
+<summary>Expand full structure</summary>
 
 ```
 app/
 ├── manifests/
-├── kotlin+java/
-│   └── com.challenge/
-│       ├── MyApp.kt
-│       └── core/
-│           ├── ui.theme/
-│           │   ├── Color.kt
-│           │   ├── Theme.kt
-│           │   └── Type.kt
-│           └── SplashScreen.kt
-│
+└── kotlin+java/
+    └── com.challenge/
+        ├── MyApp.kt
+        └── core/
+            ├── ui.theme/
+            │   ├── Color.kt
+            │   ├── Theme.kt
+            │   └── Type.kt
+            └── SplashScreen.kt
+
 core-navigation/
-├── manifests/
-├── kotlin+java/
-│   └── com.navigation/
-│       ├── AppNavigation.kt
-│       ├── FeatureGraph.kt
-│       ├── NavigatorInterface.kt
-│       ├── NavigatorInterfaceImpl.kt
-│       └── Routes.kt
-│
+└── kotlin+java/
+    └── com.navigation/
+        ├── AppNavigation.kt
+        ├── FeatureGraph.kt
+        ├── NavigatorInterface.kt
+        ├── NavigatorInterfaceImpl.kt
+        └── Routes.kt
+
 core-model/
-├── manifests/
-├── kotlin+java/
-│   └── com.model/
-│       └── Song.kt
-│
+└── kotlin+java/
+    └── com.model/
+        └── Song.kt
+
 core-network/
-├── manifests/
-├── kotlin+java/
-│   └── com.network/
-│       ├── local/
-│       │   ├── AppDatabase.kt
-│       │   ├── OfflineData.kt
-│       │   └── SearchSongsUseCase.kt
-│       ├── model/
-│       │   ├── ItunesSongsDto.kt
-│       │   ├── SongDao.kt
-│       │   └── SongEntity.kt
-│       └── remote/
-│           ├── ItunesAPI.kt
-│           ├── ItunesResponse.kt
-│           ├── NetworkModule.kt
-│           └── SongsPagingSource.kt
-│
+└── kotlin+java/
+    └── com.network/
+        ├── local/
+        │   ├── AppDatabase.kt
+        │   ├── OfflineData.kt
+        │   └── SearchSongsUseCase.kt
+        ├── model/
+        │   ├── ItunesSongsDto.kt
+        │   ├── SongDao.kt
+        │   └── SongEntity.kt
+        └── remote/
+            ├── ItunesAPI.kt
+            ├── ItunesResponse.kt
+            ├── NetworkModule.kt
+            └── SongsPagingSource.kt
+
 playlist/
-├── manifests/
-├── kotlin+java/
-│   └── album/
-│       ├── AlbumScreen.kt
-│       ├── AlbumViewModel.kt
-│   └── musicPlayer/
-│       ├── ui/
-│       │   ├── NowPlaying.kt
-│       │   └── PlayerScreen.kt
-│       ├── PlayerViewModel.kt
-│   └── navigation/
-│       └── PlaylistFeatureGraph.kt
-│   └── repository/
-│       └── RepositoryModule.kt
-│   └── songs/
-│       ├── repository/
-│       │   ├── SongsRepository.kt
-│       │   ├── SongsRepositoryImpl.kt
-│       │   └── SongsViewModelRepository.kt
-│       ├── ui/
-│       │   ├── SearchBar.kt
-│       │   ├── SongItem.kt
-│       │   ├── SongsListScreenContent.kt
-│       │   └── SongsScreen.kt
-│       └── SongsViewModel.kt
-│   └── ui.theme/
-│       ├── Color.kt
-│       ├── Theme.kt
-│       └── Type.kt
-│
+└── kotlin+java/
+    ├── album/
+    │   ├── AlbumScreen.kt
+    │   └── AlbumViewModel.kt
+    ├── musicPlayer/
+    │   ├── ui/
+    │   │   ├── NowPlaying.kt
+    │   │   └── PlayerScreen.kt
+    │   └── PlayerViewModel.kt
+    ├── navigation/
+    │   └── PlaylistFeatureGraph.kt
+    ├── repository/
+    │   └── RepositoryModule.kt
+    ├── songs/
+    │   ├── repository/
+    │   │   ├── SongsRepository.kt
+    │   │   ├── SongsRepositoryImpl.kt
+    │   │   └── SongsViewModelRepository.kt
+    │   ├── ui/
+    │   │   ├── SearchBar.kt
+    │   │   ├── SongItem.kt
+    │   │   ├── SongsListScreenContent.kt
+    │   │   └── SongsScreen.kt
+    │   └── SongsViewModel.kt
+    └── ui.theme/
+        ├── Color.kt
+        ├── Theme.kt
+        └── Type.kt
+
 gradle/
 ├── build.gradle.kts (Project)
-├── build.gradle.kts (app)
-├── build.gradle.kts (playlist)
-├── build.gradle.kts (core-navigation)
-├── build.gradle.kts (core-model)
-├── build.gradle.kts (core-network)
+├── build.gradle.kts (app, playlist, core-*)
 ├── settings.gradle.kts
 └── libs.versions.toml
-
 ```
+
+</details>
 
 ---
 
 ## ✨ Features
 
 - ▶️ Animated splash screen
-- 🎵 Songs list 
-- 🎵 Song details (player UI)  
-- 📀 Album view  
-- ⚡ Smooth UI with Compose  
-- ❌ Error handling & loading states  
-- 💾 Recently played songs (cached)
-
-<!-- 
-
-- 🔍 Song search with pagination   
-- 🧾 Bottom sheet for actions  
-- 🔄 Pull to refresh *(optional enhancement)* 
-
-
--->
----
-
-## 📡 API Integration
-
-The app integrates with the **iTunes Search API**, providing:
-
-- Song search by text input
-- Pagination support via offset
-- Lightweight media previews
+- 🔍 Song search with real-time query handling
+- 📄 Infinite scroll via Paging 3
+- 🎵 Song list with artwork, title, and artist
+- 🎧 Audio preview player with playback controls
+- 📀 Album detail screen
+- 💾 Offline access to recently searched songs
+- ❌ Graceful error states and loading indicators
 
 ---
 
-## 💾 Offline-First Strategy
+## 🧠 Engineering Decisions
 
-The app implements an **offline-first approach**:
+### Why Paging 3 instead of loading all results at once?
 
-- API results are cached in **Room**
-- Local database acts as **single source of truth**
-- Recently played songs are always available offline
+The iTunes API does not return a total result count, making cursor-based or total-pages pagination impossible. Paging 3's `PagingSource` handles this gracefully — it loads data incrementally on demand without needing to know the dataset size upfront. The trade-off is increased ViewModel complexity (`PagingData` is not a plain list), which was an acceptable cost for the memory and UX gains.
 
-👉 This mimics real-world production apps and improves UX reliability.
+### Why Room as the single source of truth instead of just a cache?
+
+Keeping Room as the authoritative data source decouples the UI entirely from network availability. The UI observes a `Flow` from Room; the repository writes to Room after each API response. This means offline behavior is deterministic by design, not an afterthought. The trade-off is that remote-to-local sync logic must be handled explicitly — this is currently done manually in the repository (see Known Limitations).
+
+### Why keep Repository implementations inside `playlist` instead of `core-network`?
+
+The `SongsRepository` interface is domain-level knowledge, but its implementation is a feature concern — it knows which API endpoints and which DB tables to use for songs. Placing the implementation in `playlist` keeps `core-network` as a pure infrastructure module with no knowledge of features, making it reusable if new feature modules are added later.
+
+### Why a custom Navigator abstraction instead of using Compose Navigation directly?
+
+Wrapping navigation behind `NavigatorInterface` means `playlist` ViewModels can trigger navigation without importing any Compose Navigation dependency. This keeps business logic testable without a UI runtime and makes it trivial to swap the navigation library if needed.
 
 ---
 
 ## 🧪 Testing
 
-Basic unit tests were implemented for:
+Unit tests cover the ViewModel and UseCase layers with a focus on data flow correctness.
 
-- ViewModel logic  
-- UseCases  
+| Layer | Framework | Focus |
+|---|---|---|
+| ViewModel | JUnit 4 + Turbine | State transitions, loading/error flows |
+| UseCases | MockK | Business logic, repository contract |
 
-The goal was to validate:
+**Run all tests:**
 
-- Data flow correctness  
-- Business logic reliability  
+```bash
+./gradlew test
+```
+
+**Run with coverage report:**
+
+```bash
+./gradlew testDebugUnitTest jacocoTestReport
+```
+
+> UI and integration tests are listed under Planned Improvements.
 
 ---
 
 ## ▶️ Running the App
 
 <details>
-<summary>Click to expand instructions</summary>
+<summary>Click to expand setup instructions</summary>
 
-### 1️⃣ Clone the repository
+### Requirements
+
+- Android Studio Otter 2025.2.1 or later
+- JDK 17+
+- Android SDK 34
+- Min SDK: 26 (Android 8.0)
+
+### Steps
+
+**1. Clone the repository**
 
 ```bash
-git clone https://github.com/your-repo/android-songs-app.git
+git clone https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge.git
+cd Android-Phone-Code-Challenge
 ```
 
-### 2️⃣ Open in Android Studio
+**2. Open in Android Studio**
 
-- Use latest stable version
+File → Open → select the cloned folder. Let Gradle sync complete.
 
-### 3️⃣ Build and Run
+**3. Run**
 
-- Select emulator or physical device
-- Click Run ▶️
+Select a device (emulator or physical, API 26+) and click **Run ▶️**.
+
+No API keys or environment variables are required — the iTunes Search API is public.
+
+### Common issues
+
+| Problem | Fix |
+|---|---|
+| Gradle sync fails | Check JDK version: File → Project Structure → SDK Location |
+| App crashes on launch | Ensure emulator/device is API 26 or higher |
+| No results returned | Verify internet connectivity; iTunes API requires network access |
 
 </details>
 
 ---
 
-## 🧠 Engineering Decisions
+## ⚠️ Known Limitations
 
-- **MVVM + Clean Architecture**  
-  → Ensures scalability and testability  
+These are intentional trade-offs made within the challenge timeframe, not oversights:
 
-- **Paging 3**  
-  → Efficient large data handling  
+- **`SearchSongsUseCase` lives in `core-network`** — it should sit in a dedicated `core-domain` module. It was placed here to avoid the overhead of a fifth module within the challenge scope.
 
-- **Room as Source of Truth**  
-  → Enables offline-first UX  
+- **No `RemoteMediator`** — syncing between Paging 3's remote source and Room is handled manually in the repository. This can produce duplicate entries in edge cases (e.g., the same song appearing across two page boundaries). `RemoteMediator` is the correct long-term solution.
 
-- **Coroutines + Flow**  
-  → Reactive and efficient async handling  
+- **Basic `MediaPlayer` for audio** — the current player implementation uses Android's `MediaPlayer`, which lacks background playback, audio focus management, and notification controls. `ExoPlayer` + `MediaSession` would be required for production.
 
-- **Complementary Color System (Teal + Coral)**  
-  → Enhances visual hierarchy and interaction feedback  
+- **No cache invalidation strategy** — cached songs persist indefinitely. A production app would need TTL-based or user-triggered cache eviction.
 
 ---
 
-## 🚀 Improvements
+## 🚀 Planned Improvements
 
-If more time was available, I would implement:
-
-- Full media playback using ExoPlayer  
-- Advanced caching with RemoteMediator  
-- UI animations and transitions  
-- Accessibility improvements  
-- Increased test coverage (UI tests)  
-
----
-
-## 🌍 Why this Project Matters
-
-This project reflects how modern Android applications are built in real-world environments.
-
-It demonstrates:
-
-- 🧠 Strong architectural thinking  
-- 📱 Production-ready Android skills  
-- ✨ Attention to user experience  
-- 🔧 Clean and maintainable code  
-
-These are key qualities valued by product-driven engineering teams.
+- [ ] Full audio playback with `ExoPlayer` + `MediaSession` (background + notifications)
+- [ ] `RemoteMediator` for proper Paging 3 + Room integration
+- [ ] UI/integration tests with Espresso and Compose Test
+- [ ] GitHub Actions CI pipeline (build + test on PR)
+- [ ] Accessibility audit (content descriptions, touch targets, screen reader support)
+- [ ] Pull-to-refresh on the songs list
+- [ ] Transition animations between screens
 
 ---
 
@@ -375,8 +395,8 @@ I build modern Android applications focusing on:
 
 ---
 
-⭐ If you found this project interesting, feel free to **star the repository!**
+⭐ If this project was useful or interesting, feel free to star the repository.
 
 ---
 
-#Android #Kotlin #JetpackCompose #CleanArchitecture #MobileDevelopment
+`#Android` `#Kotlin` `#JetpackCompose` `#CleanArchitecture` `#MobileDevelopment`
