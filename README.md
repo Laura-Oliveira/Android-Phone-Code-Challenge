@@ -93,62 +93,132 @@ This project was designed to demonstrate:
 
 ---
 
-## 🏗 Architecture
+### 🏗️ Architecture
 
-The project follows **MVVM + Modularization + Clean Architecture principles**, ensuring separation of concerns and scalability.
+#### Modules
+- **app** → Entry point, App setup, Splash, Theme  
+- **playlist** → Feature module (songs list, player, album, UI, ViewModels)  
+- **core-navigation** → Navigation abstraction (Navigator, Routes, FeatureGraph)  
+- **core-network** → Data layer (API, Paging, Database, DTOs)  
+- **core-model** → Shared domain models  
 
-### Layers:
+---
 
-- **Modules**
-  - app
-  - playlist
-- **Presentation**
-  - Compose UI
-  - ViewModels
-- **Domain**
-  - Business Models
-- **Data**
-  - Repository Implementations
-  - API (Remote)
-  - Room (Local)
+#### Presentation
+- Jetpack Compose UI (Screens, Components)  
+- ViewModels (state management)  
+- Feature-based UI structure (playlist module)  
 
-<!--
-	  - UseCases
--->
+---
+
+#### Domain
+- Business models (**core-model**)  
+- Navigation contracts (abstractions from core-navigation)  
+
+---
+
+#### Data
+- **Remote**
+  - iTunes API (Retrofit)
+  - PagingSource
+- **Local**
+  - Room (Database, DAO, Entities)
+  - Offline data handling
+- **Repository**
+  - Implementations inside feature modules (playlist)
+  - Abstraction between data sources and domain
+
 ---
 
 ## 📂 Project Structure
 
 ```
 app/
-├── core/
-│   ├── navigation/
-│   └── ui.theme/
-│   ├── SplashScreen.kt
+├── manifests/
+├── kotlin+java/
+│   └── com.challenge/
+│       ├── MyApp.kt
+│       └── core/
+│           ├── ui.theme/
+│           │   ├── Color.kt
+│           │   ├── Theme.kt
+│           │   └── Type.kt
+│           └── SplashScreen.kt
+│
+core-navigation/
+├── manifests/
+├── kotlin+java/
+│   └── com.navigation/
+│       ├── AppNavigation.kt
+│       ├── FeatureGraph.kt
+│       ├── NavigatorInterface.kt
+│       ├── NavigatorInterfaceImpl.kt
+│       └── Routes.kt
+│
+core-model/
+├── manifests/
+├── kotlin+java/
+│   └── com.model/
+│       └── Song.kt
+│
+core-network/
+├── manifests/
+├── kotlin+java/
+│   └── com.network/
+│       ├── local/
+│       │   ├── AppDatabase.kt
+│       │   ├── OfflineData.kt
+│       │   └── SearchSongsUseCase.kt
+│       ├── model/
+│       │   ├── ItunesSongsDto.kt
+│       │   ├── SongDao.kt
+│       │   └── SongEntity.kt
+│       └── remote/
+│           ├── ItunesAPI.kt
+│           ├── ItunesResponse.kt
+│           ├── NetworkModule.kt
+│           └── SongsPagingSource.kt
 │
 playlist/
-├── songsPlaylist/
-│   ├── SongsListScreen.kt
-│   └── SongsAlbumScreen.kt
-│   └── SongsViewModel.kt
+├── manifests/
+├── kotlin+java/
+│   └── album/
+│       ├── AlbumScreen.kt
+│       ├── AlbumViewModel.kt
+│   └── musicPlayer/
+│       ├── ui/
+│       │   ├── NowPlaying.kt
+│       │   └── PlayerScreen.kt
+│       ├── PlayerViewModel.kt
+│   └── navigation/
+│       └── PlaylistFeatureGraph.kt
+│   └── repository/
+│       └── RepositoryModule.kt
+│   └── songs/
+│       ├── repository/
+│       │   ├── SongsRepository.kt
+│       │   ├── SongsRepositoryImpl.kt
+│       │   └── SongsViewModelRepository.kt
+│       ├── ui/
+│       │   ├── SearchBar.kt
+│       │   ├── SongItem.kt
+│       │   ├── SongsListScreenContent.kt
+│       │   └── SongsScreen.kt
+│       └── SongsViewModel.kt
+│   └── ui.theme/
+│       ├── Color.kt
+│       ├── Theme.kt
+│       └── Type.kt
 │
-├── musicPlayer/
-│   ├── musicPlayerScreen.kt
-│   └── musicPlayerViewModel.kt
-│
-├── data/
-│   ├── remote/
-│   	└── APIItunes.kt
-│   	└── RetrofitAPI.kt
-│   └── local/
-│   	└── OfflineData.kt
-│
-└── gradle/
-  	└── build.gradle.kts (Project :Songs_App)
-  	└── build.gradle.kts (Module :app)
-  	└── build.gradle.kts (Module :playlist)
-  	└── settings.gradle.kts (Project Settings) 
-  	└── libs.version.toml (Version Catalog "libs")  
+gradle/
+├── build.gradle.kts (Project)
+├── build.gradle.kts (app)
+├── build.gradle.kts (playlist)
+├── build.gradle.kts (core-navigation)
+├── build.gradle.kts (core-model)
+├── build.gradle.kts (core-network)
+├── settings.gradle.kts
+└── libs.versions.toml
 
 ```
 
