@@ -43,8 +43,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core-model"))
     implementation(project(":core-navigation"))
+    implementation(project(":core-model"))
+    implementation(project(":core-network"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

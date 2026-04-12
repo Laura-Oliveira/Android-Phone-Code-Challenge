@@ -4,9 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.model.Song
-import data.remote.ItunesAPI
+import com.network.remote.ItunesAPI
+import com.network.remote.SongsPagingSource
 import kotlinx.coroutines.flow.Flow
-import data.remote.SongsPagingSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
