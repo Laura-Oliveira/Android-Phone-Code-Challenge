@@ -295,8 +295,6 @@ I build modern Android applications focusing on:
 
 ## 🔗 Connect with Me
 
-💼 **LinkedIn:** https://www.linkedin.com/in/laura-oliveira-mobile/  
-
 🌐 **Portfolio:** https://laura-oliveira.github.io/  
 
 📧 **Email:** laura.oliveira.tech@gmail.com  
