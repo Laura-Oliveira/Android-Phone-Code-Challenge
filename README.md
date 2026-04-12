@@ -130,6 +130,10 @@ This project was designed to demonstrate:
 
 ---
 
+![architecture](https://github.com/Laura-Oliveira/Android-Phone-Code-Challenge/blob/develop/app/src/assets/architecture.svg)
+
+---
+
 ## 📂 Project Structure
 
 ```
