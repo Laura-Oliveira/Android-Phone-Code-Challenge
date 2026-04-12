@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation(project(":core-navigation"))
     implementation(project(":core-model"))
+    implementation(project(":core-network"))
     implementation(project(":playlist"))
 
     implementation(libs.androidx.core.ktx)
